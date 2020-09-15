@@ -1,0 +1,26 @@
+<div class="px-4 mx-4 bg-gray-100 border border-black rounded-lg">
+  <div class="p-4">
+    <%= if [] == @locations do %>
+    <div class="bg-red-100 p-4 text-red-500">
+      <p>There are no Locations.</p>
+    </div>
+    <% end %>
+
+    <div class="pt-4 flex justify-center">
+      <button id="btn-add-location"
+        class="inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md text-white bg-indigo-600"
+        phx-click="add-Locations">Add Location</button>
+    </div>
+
+
+
+    <%= for location <- @locations do %>
+    <%= live_component @socket, LocationsWeb.Live.Location.ShowLocation, id: location.id, location: location  %>
+    <% end %>
+  </div>
+
+
+  <%= if modal = Map.get(assigns, :modal, nil) do %>
+  <%= show_modal(@socket, modal) %>
+  <% end %>
+</div>

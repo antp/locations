@@ -1,0 +1,99 @@
+<div id="<%= @action %>-location-modal" class="max-h-screen overflow-x-hidden overflow-y-auto ">
+    <h3 class="text-lg font-semibold leading-6 text-center text-gray-900" id="modal-headline"
+        aria-labelledby="modal-headline add Locations">
+        <%= String.capitalize(@action) %> Locations
+    </h3>
+
+    <hr class="mt-4" />
+
+
+    <%= f = form_for @changeset, "#", [id: "locations-form", phx_change: :validate, phx_submit: @action, phx_target: @myself] %>
+
+    <%= hidden_input f, :lat %>
+    <%= hidden_input f, :lon %>
+
+
+    <div>
+        <div class="mt-2">
+            <%= label f, "Address line 1", class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 rounded-md shadow-sm" phx-feedback-for="addr1">
+                <%= text_input f, :addr1, class: "bg-red-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "",  "phx-debounce": "blur" %>
+            </div>
+            <%= error_tag(f, :addr1) %>
+        </div>
+
+        <div class="mt-2">
+            <%= label f, "Address line 2", class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 rounded-md shadow-sm" phx-feedback-for="addr2">
+                <%= text_input f, :addr2, class: "bg-gray-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "",  "phx-debounce": "blur" %>
+            </div>
+            <%= error_tag(f, :addr2) %>
+        </div>
+
+        <div class="mt-2">
+            <%= label f, "City / Town", class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 rounded-md shadow-sm" phx-feedback-for="city">
+                <%= text_input f, :city, class: "bg-red-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "",  "phx-debounce": "1000" %>
+            </div>
+            <%= error_tag(f, :city) %>
+        </div>
+
+        <div class="mt-2">
+            <%= label f, "State / Province / Region", class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 rounded-md shadow-sm" phx-feedback-for="county">
+                <%= text_input f, :county, class: "bg-gray-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "",  "phx-debounce": "blur" %>
+            </div>
+            <%= error_tag(f, :county) %>
+        </div>
+
+        <div class="mt-2">
+            <%= label f, "Postcode / Zip", class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 rounded-md shadow-sm" phx-feedback-for="postcode">
+                <%= text_input f, :postcode, class: "bg-red-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "",  "phx-debounce": "blur" %>
+            </div>
+            <%= error_tag(f, :postcode) %>
+        </div>
+
+        <div class="mt-2">
+            <%= label f, :country, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="flex mt-1 rounded-md shadow-sm" phx-feedback-for="instructor_country">
+                <span
+                    class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md sm:text-sm">
+                    <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.667 12H2v8H0V0h12l.333 2H20l-3 6 3 6H8l-.333-2z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <%= text_input f, :country, class: "bg-red-100 flex-1 block w-full min-w-0
+                    transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5",
+                    placeholder: "Country",  "phx-debounce": "blur" %>
+            </div>
+            <%= error_tag(f, :country) %>
+        </div>
+    </div>
+
+
+    <div class="mt-8">
+        <hr />
+
+        <div class="flex justify-end py-4">
+            <button type="button" class="mr-2 btn btn-cancel-ol" id="location-cancel" phx-click="cancel-location"
+                phx-target="<%= @myself %>">Cancel</button>
+
+            <%= submit String.capitalize(@action) <> " Location", class: "btn btn-p", disabled: !@changeset.valid?,
+            id: "Locations-submit" %>
+        </div>
+    </div>
+    </form>
+
+</div>

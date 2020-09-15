@@ -1,0 +1,100 @@
+/* purgecss start ignore */
+
+@tailwind base;
+
+@tailwind components;
+
+/* Put your custom components here */
+@import "../node_modules/nprogress/nprogress.css";
+
+
+.invalid-feedback {
+    @apply inline-block text-red-500 pt-1
+}
+  
+.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
+    @apply hidden
+}
+
+
+.phx-click-loading {
+    @apply transition-opacity  duration-150 ease-in-out opacity-75
+  }
+  
+.phx-disconnected{
+    cursor: wait;
+}
+
+.phx-disconnected *{
+    pointer-events: none;
+}
+
+
+.btn {
+    // font-variant: small-caps;
+    @apply  text-sm py-1 px-2 rounded-lg
+}
+
+.btn:disabled {
+    @apply opacity-25 cursor-not-allowed
+}
+
+.btn-p {
+    @apply bg-green-200 text-black border border-blue-500
+}
+
+.btn-p:hover {
+    @apply bg-green-300 border-blue-600
+}
+
+.btn-p-ol {
+    @apply border text-green-800 border-blue-700
+}
+
+.btn-p-ol:hover {
+    @apply bg-green-200
+}
+
+.btn-p-l {
+    @apply normal-case font-normal text-base text-gray-700 border border-none underline
+}
+
+.btn-cancel {
+    @apply bg-red-700 text-white border
+}
+
+.btn-cancel:hover {
+    @apply bg-red-800
+}
+
+.btn-cancel-ol {
+    @apply border border-red-800 text-red-800
+}
+
+.btn-cancel-ol:hover {
+    @apply bg-red-700 text-white border-red-900
+}
+
+.btn-cancel-l {
+    @apply normal-case font-normal text-base text-red-600 border border-none underline
+}
+
+.map {
+    height: 300px;
+}
+
+.map-button {
+    background-color: #F0F7FF;  
+    border: 2px solid #D7E7FF;
+    font-size: 0.8rem;
+}
+  
+.map-button.selected {
+    background-color: #D9E7F7;
+    border-color: #9DB9E4;
+}
+
+/* purgecss end ignore */
+
+@tailwind utilities;
+

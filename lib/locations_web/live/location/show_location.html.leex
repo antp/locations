@@ -1,0 +1,115 @@
+<div class="p-4 mt-4 bg-gray-200 border border-gray-600 rounded-lg">
+
+    <div class="grid grid-cols-1 pt-4 lg:grid-cols-2 lg:gap-4">
+
+        <div>
+            <div class="flex flex-row items-center justify-between pb-2">
+                <div class="font-semibold tracking-wide">
+                    <%=  @location.addr1 %>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-p-ol" id="edit-<%= @location.id %>" phx-click="edit-location"
+                        phx-target="<%= @myself %>" phx-value-id="<%= @location.id %>" data-toggle="tooltip"
+                        title="Edit location" data-original-title=" Edit location">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M2 4v14h14v-6l2-2v10H0V2h10L8 4H2zm10.3-.3l4 4L8 16H4v-4l8.3-8.3zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+
+                    </button>
+                    <button type="button" class="btn btn-cancel-ol hover:text-white" id="remove-<%= @location.id %>"
+                        phx-click="maybe-remove-location" phx-target="<%= @myself %>" phx-value-id="<%= @location.id %>"
+                        data-toggle="tooltip" title="Remove location" data-original-title="Remove location">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"
+                                clip-rule="evenodd" />
+                        </svg>
+
+                    </button>
+
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="pt-2">
+                <ul>
+                    <li class="mb-3">
+                        <dl class="mt-2">
+                            <dt>
+                                <%=  @location.addr2 %>
+                            </dt>
+                            <dt>
+                                <%=  @location.city %>
+                            </dt>
+                            <dt>
+                                <%=  @location.county %>
+                            </dt>
+                            <dt>
+                                <%=  @location.postcode %>
+                            </dt>
+                            <dt>
+                                <%=  @location.country %><br />
+                            </dt>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+
+            <hr />
+            <div class="flex justify-end mt-2 whitespace-no-wrap">
+                <button id="get-map-<%= @location.id %>" type="button" phx-click="get-map" phx-target="<%= @myself %>"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out bg-blue-50 btn btn-p">
+
+                    <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm2-2.25a8 8 0 0 0 4-2.46V9a2 2 0 0 1-2-2V3.07a7.95 7.95 0 0 0-3-1V3a2 2 0 0 1-2 2v1a2 2 0 0 1-2 2v2h3a2 2 0 0 1 2 2v5.75zm-4 0V15a2 2 0 0 1-2-2v-1h-.5A1.5 1.5 0 0 1 4 10.5V8H2.25A8.01 8.01 0 0 0 8 17.75z"
+                            clip-rule="evenodd" />
+                    </svg> Get Map
+
+                </button>
+            </div>
+
+        </div>
+
+        <div>
+            <%= if @location.lat do %>
+            <div class="px-4 mt-0" phx-hook="AddMap">
+                <input type="hidden" id="lat" name="lat" value=<%= @location.lat %>>
+                <input type="hidden" id="lon" name="lon" value=<%= @location.lon %>>
+                <input type="hidden" id="map_id" name="map_id" value=<%= get_map_id(@location) %>>
+
+                <div id="<%= get_map_id(@location) %>" phx-update="ignore"
+                    class="z-0 overflow-hidden border border-gray-500 rounded-lg map">
+                </div>
+            </div>
+
+            <%= if :multiple_features == @geo_encoding_type do %>
+            <div class="mt-2">
+                <p class="text-center text-orange-600">Multiple locations found. Please select a venue.</p>
+            </div>
+            <%= for place <- @location.geo_features do %>
+            <div class="mt-2">
+                <button type="button" id="<%= get_geo_place_id_for_location(@location, place) %>"
+                    class="p-2 map-button <%= get_geo_place_selected(place, @location.geo_selected_id) %> rounded"
+                    phx-click="map_location_selected" phx-value-geo_id="<%= get_geo_place_id(place) %>"
+                    phx-target="<%= @myself %>" phx-throttle="1000">
+                    <%= get_geo_place_display_name(place) %><br />
+                    (<%= get_geo_place_display_type(place) %>)
+                </button>
+            </div>
+            <% end %>
+            <% end %>
+            <% else %>
+            <p class="p-4 text-lg text-center text-orange-600">
+                Sorry we are unable to display the map
+            </p class="p-4">
+            <p>Please press the "Get Map" button if you want to display a map for this location.</p>
+            <% end %>
+
+        </div>
+    </div>
+</div>

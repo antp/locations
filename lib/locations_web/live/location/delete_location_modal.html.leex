@@ -1,0 +1,52 @@
+<div id="remove-location-modal-<%= @location.id %>">
+    <h3 class="text-lg font-medium leading-6 text-center text-red-700" id="modal-header"
+        aria-labelledby="modal-headline">
+        Remove location
+    </h3>
+
+    <hr class="mt-4" />
+
+    <%= if @remove_error do %>
+    <div class="text-red-500">
+        There was a problem removing the location
+    </div>
+    <% end %>
+
+    <div class="mt-4 font-semibold tracking-wide"><%= @location.addr1 %></div>
+
+    <div class="pt-2">
+        <ul>
+            <li class="mb-3">
+
+
+                <dl class="mt-2">
+                    <dt>
+                        <%=  @location.addr2 %>
+                    </dt>
+                    <dt>
+                        <%=  @location.city %>
+                    </dt>
+                    <dt>
+                        <%=  @location.county %>
+                    </dt>
+                    <dt>
+                        <%=  @location.postcode %>
+                    </dt>
+                    <dt>
+                        <%=  @location.country %><br />
+                    </dt>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mt-8">
+        <hr />
+
+        <div class="flex justify-end py-4">
+            <button type="button" class="mr-2 font-medium btn btn-p-ol" id="remove-location-cancel"
+                phx-click="cancel-remove-location" phx-target="<%= @myself %>">Cancel</button>
+            <button type="button" class="mr-2 font-medium btn btn-cancel" id="remove-location"
+                phx-click="remove-location" phx-target="<%= @myself %>">Remove location</button> </div>
+    </div>
+</div>
