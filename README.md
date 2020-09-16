@@ -12,6 +12,8 @@ The application supports displaying multiple maps on a single page.
 The code has been extracted form another project as I think it may be useful for others
 to build upon.
 
+[Supporting blog posts](https://componentx.co.uk/blog/geo-location-part-1)
+
 ## Project demonstration 
 
 ![project demonstration GIF](/demo/demo.gif)
